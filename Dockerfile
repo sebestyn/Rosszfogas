@@ -17,7 +17,7 @@ RUN npm ci
 COPY . .
 
 # Install curl
-RUN apk --no-cache add curl
+RUN apt update && apt install curl -y
 
 # Expose port
 EXPOSE 3000
