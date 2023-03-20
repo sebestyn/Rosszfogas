@@ -16,6 +16,9 @@ RUN npm ci
 # Bundle app source
 COPY . .
 
+# Install curl
+RUN apk --no-cache add curl
+
 # Expose port
 EXPOSE 3000
 
