@@ -1,6 +1,4 @@
-# Node + Express + EJS + Tailwind CSS Starter Template
-
-The intention of this project is how to create app using Node.js + Express.js + EJS + Tailwind css
+# Rosszfogás - BME Szerver oldali JavaScript házifeladat
 
 ## Dependencies
 
@@ -34,5 +32,5 @@ Start the Tailwind CLI build process
 Run the CLI tool to scan your template files for classes and build your CSS.:
 
 ```sh
-$ npm run devcss
+$ npm run css
 ```
