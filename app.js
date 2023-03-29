@@ -6,76 +6,88 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const PORT = process.env.PORT || 3000;
 
-// global middlewares
+// Middlewares - default
+const renderMW = require('./middlewares/renderMW');
+const redirectMW = require('./middlewares/redirectMW');
+
+// Middlewares - products
+const loadAllProductsMW = require('./middlewares/product/loadAllProductsMW');
+const cremoProductMW = require('./middlewares/product/cremoProductMW');
+const findProductByIdMW = require('./middlewares/product/findProductByIdMW');
+const deleteProductMW = require('./middlewares/product/deleteProductMW');
+const buyProductMW = require('./middlewares/product/buyProductMW');
+const findProductsByCustomerMW = require('./middlewares/product/findProductsByCustomerMW');
+
+// Middlewares - customers
+const loadAllCustomersMW = require('./middlewares/customer/loadAllCustomersMW');
+const cremoCustomerMW = require('./middlewares/customer/cremoCustomerMW');
+const findCustomerByIdMW = require('./middlewares/customer/findCustomerByIdMW');
+const deleteCustomerMW = require('./middlewares/customer/deleteCustomerMW');
+
+// Use Global middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(helmet());
 
-// set engine to ejs
+// Set engine to ejs
 app.set('view engine', 'ejs');
 
-// connect to mongodb
+// Connect to mongodb
 // mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-/////////////s
+/////////////
 // Routers //
 /////////////
 
-// - Redirect to /product
-app.get('/', (req, res) => {
-    res.redirect('/product');
-});
+const objRepo = {};
+
+// - Home
+app.get('/', renderMW(objRepo, 'index'));
+
+////////////
+// Products
+////////////
 
 // - Get all products
-app.get('/product', (req, res) => {
-    res.render('products');
-});
+app.get('/products', loadAllProductsMW(objRepo), loadAllCustomersMW(objRepo), renderMW(objRepo, 'products'));
 
-// - Create one product view
-app.get('/product/create', (req, res) => {
-    res.render('new_product');
-});
+// - Create product or modify view
+app.get('/product/create/:id?', findProductByIdMW(objRepo), renderMW(objRepo, 'new_product'));
 
-// - Create one product
-app.post('/product', (req, res) => {
-    res.send('Create one product');
-});
+// - Create product
+app.post('/product', cremoProductMW(objRepo), redirectMW(objRepo, '/products'));
 
-// - Edit one product
-app.patch('/product/:id', (req, res) => {
-    res.send('Edit one product');
-});
+// - Modify product
+app.post('/product/edit/:id', cremoProductMW(objRepo), redirectMW(objRepo, '/products'));
 
-// - Delete one product
-app.delete('/product/:id', (req, res) => {
-    res.send('Delete one product');
-});
+// - Delete product
+app.post('/product/delete/:id', deleteProductMW(objRepo), redirectMW(objRepo, '/products'));
+
+// - Buy product by customer
+app.post('/product/buy/:id', buyProductMW(objRepo), redirectMW(objRepo, '/products'));
+
+// - Get customer's buyed products
+app.get('/products/customer/:id', findCustomerByIdMW(objRepo), findProductsByCustomerMW(objRepo), redirectMW(objRepo, '/customers'));
+
+////////////
+// Customers
+////////////
 
 // - Get all customers
-app.get('/customer', (req, res) => {
-    res.render('customers');
-});
+app.get('/customers', loadAllCustomersMW(objRepo), renderMW(objRepo, 'customers'));
 
-// - Create one customer view
-app.get('/customer/create', (req, res) => {
-    res.render('new_customer');
-});
+// - Create customer or modify view
+app.get('/customer/create/:id?', findCustomerByIdMW(objRepo), renderMW(objRepo, 'new_customer'));
 
-// - Create one customer
-app.post('/customer', (req, res) => {
-    res.send('Create one customer');
-});
+// - Create customer
+app.post('/customer', cremoCustomerMW(objRepo), redirectMW(objRepo, '/customers'));
 
-// - Edit one customer
-app.patch('/customer/:id', (req, res) => {
-    res.send('Edit one customer');
-});
+// - Modify customer
+app.post('/customer/edit/:id', cremoCustomerMW(objRepo), redirectMW(objRepo, '/customers'));
 
-// - Delete one customer
-app.delete('/customer/:id', (req, res) => {
-    res.send('Delete one customer');
-});
+// - Delete customer
+app.post('/customer/delete/:id', deleteCustomerMW(objRepo), redirectMW(objRepo, '/customers'));
 
 // Server listening
 app.listen(PORT, () => {

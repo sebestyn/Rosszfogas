@@ -1,0 +1,61 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles/style.css" type="text/css" />
+        <title>Rosszfogás</title>
+    </head>
+    <body>
+        <!-- source: https://tailwindcomponents.com/component/simple-navbar -->
+        <nav class="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-2 sm:px-10 md:px-20 lg:px-44 bg-white shadow sm:items-baseline w-full mb-12">
+            <div class="mb-2 sm:mb-0">
+                <a href="/" class="text-2xl no-underline text-grey-darkest hover:text-blue-dark">Rosszfogás</a>
+            </div>
+            <div>
+                <a href="/products.html" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-5">Termékek</a>
+                <a href="/customers.html" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-5">Vásárlók</a>
+            </div>
+        </nav>
+<div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-44">
+    <!-- Title -->
+    <h1 class="mx-auto text-4xl font-semibold mb-6">Új termék / Termék módosítás</h1>
+
+    <div class="text-center mx-auto">
+        <table class="mx-auto table-auto border-separate border-spacing-6">
+            <tr>
+                <td class="text-right text-lg font-semibold">Név</td>
+                <td>
+                    <input type="text" name="name" id="name" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" />
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right text-lg font-semibold">Ár</td>
+                <td>
+                    <input type="number" name="price" id="price" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" />
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right text-lg font-semibold">Leírás</td>
+                <td>
+                    <textarea name="description" id="description" class="w-[200px] border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right text-lg font-semibold">Átvételi hely</td>
+                <td>
+                    <input type="text" name="place" id="place" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" />
+                </td>
+            </tr>
+            <tr>
+                <td class="mx-auto text-center" colspan="2">
+                    <a href="/products.html" class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Mentés</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

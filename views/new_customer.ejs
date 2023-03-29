@@ -2,29 +2,35 @@
 
 <div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-44">
     <!-- Title -->
-    <h1 class="mx-auto text-4xl font-semibold mb-6">Új vásárló</h1>
+    <h1 class="mx-auto text-4xl font-semibold mb-6">
+        <%= 'customer' in locals ? "Vásárló módosítás" : "Új vásárló" %>
+    </h1>
 
-    <div class="text-center mx-auto">
+    <form method="POST" action="/customer<%= 'customer' in locals ? '/edit/' + customer.id : '' %>" class="text-center mx-auto">
         <table class="mx-auto table-auto border-separate border-spacing-6">
             <tr>
                 <td class="text-right text-lg font-semibold">Név</td>
                 <td>
-                    <input type="text" name="name" id="name" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" />
+                    <input type="text" name="name" id="name" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" 
+                    value="<%= 'customer' in locals ? customer.name : '' %>"
+                    />
                 </td>
             </tr>
             <tr>
                 <td class="text-right text-lg font-semibold">Email</td>
                 <td>
-                    <input type="text" name="email" id="email" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" />
+                    <input type="text" name="email" id="email" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" 
+                    value="<%= 'customer' in locals ? customer.email : '' %>"
+                    />
                 </td>
             </tr>
             <tr>
                 <td class="mx-auto text-center" colspan="2">
-                    <a href="/customer" class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Mentés</a>
+                    <button class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Mentés</button>
                 </td>
             </tr>
         </table>
-    </div>
+    </form>
 </div>
 
 <%- include('partials/footer') %>

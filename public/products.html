@@ -1,0 +1,187 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles/style.css" type="text/css" />
+        <title>Rosszfogás</title>
+    </head>
+    <body>
+        <!-- source: https://tailwindcomponents.com/component/simple-navbar -->
+        <nav class="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-2 sm:px-10 md:px-20 lg:px-44 bg-white shadow sm:items-baseline w-full mb-12">
+            <div class="mb-2 sm:mb-0">
+                <a href="/" class="text-2xl no-underline text-grey-darkest hover:text-blue-dark">Rosszfogás</a>
+            </div>
+            <div>
+                <a href="/products" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-5">Termékek</a>
+                <a href="/customers" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-5">Vásárlók</a>
+            </div>
+        </nav>
+        <div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-44">
+            <!-- Title -->
+            <h1 class="mx-auto text-4xl font-semibold mb-10">Termékek</h1>
+
+            <!-- Table  source: https://tailwindcomponents.com/component/responsive-table-5-->
+            <section class="container mx-auto font-mono">
+                <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                    <div class="w-full overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                                    <th class="px-4 py-3">Id</th>
+                                    <th class="px-4 py-3">Név</th>
+                                    <th class="px-4 py-3">Ár</th>
+                                    <th class="px-4 py-3">Leírás</th>
+                                    <th class="px-4 py-3">Átvétel</th>
+                                    <th class="px-4 py-3">Vásárló</th>
+                                    <th class="px-4 py-3">Akció</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr class="text-gray-700">
+                                    <td class="px-4 py-3 border">26</td>
+                                    <td class="px-4 py-3 border">200 krokodil</td>
+                                    <td class="px-4 py-3 border">$150</td>
+                                    <td class="px-4 py-3 border">Még picik és cukik</td>
+                                    <td class="px-4 py-3 border">Balaton</td>
+                                    <td class="px-4 py-3 border">
+                                        <select name="" id="">
+                                            <option value="-">-</option>
+                                            <option value="John">John</option>
+                                            <option value="Bill">Bill</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3 border">
+                                        <a href="new_product">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                class="w-6 h-6 inline text-blue-600 cursor-pointer"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                                                /></svg
+                                        ></a>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            class="w-6 h-6 inline text-red-600 cursor-pointer"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                            />
+                                        </svg>
+                                    </td>
+                                </tr>
+                                <tr class="text-gray-700">
+                                    <td class="px-4 py-3 border">513</td>
+                                    <td class="px-4 py-3 border">Drog</td>
+                                    <td class="px-4 py-3 border">$20</td>
+                                    <td class="px-4 py-3 border">új és jó minőségű</td>
+                                    <td class="px-4 py-3 border">Nyugati aluljáró</td>
+                                    <td class="px-4 py-3 border">
+                                        <select name="" id="">
+                                            <option value="-">-</option>
+                                            <option value="John">John</option>
+                                            <option value="Bill">Bill</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3 border">
+                                        <a href="new_product">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                class="w-6 h-6 inline text-blue-600 cursor-pointer"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                                                /></svg
+                                        ></a>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            class="w-6 h-6 inline text-red-600 cursor-pointer"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                            />
+                                        </svg>
+                                    </td>
+                                </tr>
+                                <tr class="text-gray-700">
+                                    <td class="px-4 py-3 border">221</td>
+                                    <td class="px-4 py-3 border">Tank</td>
+                                    <td class="px-4 py-3 border">$1800</td>
+                                    <td class="px-4 py-3 border">új és rossz minőségű</td>
+                                    <td class="px-4 py-3 border">New York</td>
+                                    <td class="px-4 py-3 border">
+                                        <select name="" id="">
+                                            <option value="John">John</option>
+                                            <option value="Bill">Bill</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3 border">
+                                        <a href="new_product">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                class="w-6 h-6 inline text-blue-600 cursor-pointer"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                                                /></svg
+                                        ></a>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            class="w-6 h-6 inline text-red-600 cursor-pointer"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                            />
+                                        </svg>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Buttons -->
+            <div class="mx-auto text-center">
+                <a href="/new_product" class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Új termék</a>
+            </div>
+        </div>
+    </body>
+</html>
