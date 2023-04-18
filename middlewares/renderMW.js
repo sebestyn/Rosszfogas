@@ -6,9 +6,14 @@
  */
 const renderMW = (objRepo, viewName) => {
     return (req, res, next) => {
+        // Set loggedin variable to res.locals from session
+        res.locals.loggedin = req.session ? req.session.loggedin : false;
+
+        // res.setHeader('Content-Security-Policy', "script-src 'self' 'unsafe-inline';");
+
+        // Render view
         return res.render(viewName, res.locals);
     };
 };
-
 
 module.exports = renderMW;

@@ -4,11 +4,17 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const session = require('express-session');
 const PORT = process.env.PORT || 3000;
 
 // Middlewares - default
 const renderMW = require('./middlewares/renderMW');
 const redirectMW = require('./middlewares/redirectMW');
+
+// Middlewares - auth
+const loginMW = require('./middlewares/auth/loginMW');
+const authMW = require('./middlewares/auth/authMW');
+const logoutMW = require('./middlewares/auth/logoutMW');
 
 // Middlewares - products
 const loadAllProductsMW = require('./middlewares/product/loadAllProductsMW');
@@ -28,7 +34,15 @@ const deleteCustomerMW = require('./middlewares/customer/deleteCustomerMW');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
-app.use(helmet());
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net'], // Allow inline scripts
+        },
+    })
+);
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true, cookie: { maxAge: 60000 } }));
 
 // Set engine to ejs
 app.set('view engine', 'ejs');
@@ -46,7 +60,20 @@ const objRepo = {};
 app.get('/', renderMW(objRepo, 'index'));
 
 ////////////
-// Products
+// Auth
+////////////
+
+// - Login
+app.post('/login', loginMW(objRepo), redirectMW(objRepo, '/products?msg=Sikeres bejelentkezés&msgType=success'));
+
+// - Logout
+app.get('/logout', logoutMW(objRepo), redirectMW(objRepo, '/?msg=Sikeres kijelentkezés&msgType=success'));
+
+// - Auth
+app.use(authMW(objRepo));
+
+////////////
+// Productso
 ////////////
 
 // - Get all products

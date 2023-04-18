@@ -5,19 +5,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/styles/style.css" type="text/css" />
         <title>Rosszfogás - <%= title %></title>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
-        <!-- source: https://tailwindcomponents.com/component/simple-navbar -->
-        <nav class="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-2 sm:px-10 md:px-20 lg:px-44 bg-white shadow sm:items-baseline w-full mb-12">
-            <div class="mb-2 sm:mb-0">
-                <a href="/" class="text-2xl no-underline text-grey-darkest hover:text-blue-dark">Rosszfogás</a>
-            </div>
-            <div>
-                <a href="/products" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-5">Termékek</a>
-                <a href="/customers" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-5">Vásárlók</a>
-            </div>
-        </nav>
+        <%- include('navbar', {title}) %>
 
-        
+        <script type="text/javascript">
+            const urlParams = new URLSearchParams(window.location.search);
+            const msg = urlParams.get('msg');
+            const msgType = urlParams.get('msgType');
+            if (msg) {
+                Swal.fire({
+                    title: msg,
+                    icon: msgType || '',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer);
+                        toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    },
+                });
+            }
+        </script>
     </body>
 </html>

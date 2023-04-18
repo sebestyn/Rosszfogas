@@ -1,20 +1,36 @@
 <%- include('partials/header', {title: "Rosszfogás"}) %>
 
-<body>
-
-    <div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-44">
-        <h1 class="text-4xl font-semibold">Rosszfogás</h1>
-        <div class="mt-10 max-w-xl mx-auto text-lg">
-            <p class="text-gray-800">BME VIK 2022/23 2. félév Szerver oldali JavaScript beadandó feladat.</p>
-            <p class="mt-5 text-red-700">Az oldal teljesen illegális. Légyszi csak akkor használd ha te is bűnöző vagy. Ha nem vagy, akkor ne használd. Köszönöm.</p>
-            <p class="mt-5 text-gray-800">
-                Az oldal célja, hogy olyan termékeket lehessen eladni és venni amik a törvény nem enged. Csak addig lesz elérhető az oldal amíg a rendőrség meg nem találja. Légyszi ne szólj a
-                rendőrségnek.
-            </p>
-            <div class="mt-5 py-5">
-                <a href="/products" class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Termékek</a>
-                <a href="/customers" class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Vásárlók</a>
-            </div>
+<div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-44">
+    <h1 class="text-4xl font-semibold">Rosszfogás</h1>
+    <div class="mt-10 max-w-xl mx-auto text-lg">
+        <p class="text-gray-800">BME VIK 2022/23 2. félév Szerver oldali JavaScript beadandó feladat.</p>
+        <p class="mt-5 text-red-700">Az oldal teljesen illegális. Légyszi csak akkor használd ha te is bűnöző vagy. Ha nem vagy, akkor ne használd. Köszönöm.</p>
+        <p class="mt-5 text-gray-800">
+            Az oldal célja, hogy olyan termékeket lehessen eladni és venni amik a törvény nem enged. Csak addig lesz elérhető az oldal amíg a rendőrség meg nem találja. Légyszi ne szólj a
+            rendőrségnek.
+        </p>
+        <% if(loggedin){ %>
+        <div class="mt-5 py-5">
+            <a href="/logout" class="border border-solid px-8 py-2 mt-3 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Logout</a>
+        </div>
+        <% } else { %>
+        <div class="mt-5 py-5">
+            <form action="/login" method="post">
+                <input
+                    name="password"
+                    class="shadow appearance-none border rounded w-30 text-center py-2 px-3 mb-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="password"
+                    type="password"
+                    placeholder="***********"
+                    autofocus
+                />
+                <br />
+                <p class="text-md text-gray-600">Jelszó: <span class="text-red-800">admin</span></p>
+                <button type="submit" class="border border-solid px-8 py-2 mt-3 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Belépés</button>
+            </form>
         </div>
     </div>
+    <% } %>
+</div>
+
 <%-include("./partials/footer")-%>
