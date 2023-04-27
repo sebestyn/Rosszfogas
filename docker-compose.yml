@@ -9,6 +9,7 @@ services:
             dockerfile: ./Dockerfile
         environment:
             NODE_ENV: production
+            MONGODB_URI: mongodb://database:27017/rv6jjo_rosszfogas
         restart: unless-stopped
         ports:
             - 7001:3000
@@ -17,3 +18,16 @@ services:
             interval: 10s
             timeout: 5s
             retries: 2
+        networks:
+            - rosszfogas-network
+
+    database:
+        image: mongo
+        volumes:
+            - ./data/db:/data/db
+        networks:
+            - rosszfogas-network
+
+networks:
+    rosszfogas-network:
+        driver: bridge

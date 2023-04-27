@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const session = require('express-session');
 const PORT = process.env.PORT || 3000;
+const db = require('./config/db');
 
 // Middlewares - default
 const renderMW = require('./middlewares/renderMW');
@@ -47,9 +48,6 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true
 // Set engine to ejs
 app.set('view engine', 'ejs');
 
-// Connect to mongodb
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
 /////////////
 // Routers //
 /////////////
@@ -59,9 +57,9 @@ const objRepo = {};
 // - Home
 app.get('/', renderMW(objRepo, 'index'));
 
-////////////
-// Auth
-////////////
+//////////
+// Auth //
+//////////
 
 // - Login
 app.post('/login', loginMW(objRepo), redirectMW(objRepo, '/products?msg=Sikeres bejelentkezés&msgType=success'));
@@ -72,9 +70,9 @@ app.get('/logout', logoutMW(objRepo), redirectMW(objRepo, '/?msg=Sikeres kijelen
 // - Auth
 app.use(authMW(objRepo));
 
-////////////
-// Productso
-////////////
+//////////////
+// Products //
+//////////////
 
 // - Get all products
 app.get('/products', loadAllProductsMW(objRepo), loadAllCustomersMW(objRepo), renderMW(objRepo, 'products'));
@@ -97,9 +95,9 @@ app.post('/product/buy/:id', buyProductMW(objRepo), redirectMW(objRepo, '/produc
 // - Get customer's buyed products
 app.get('/products/customer/:id', findCustomerByIdMW(objRepo), findProductsByCustomerMW(objRepo), redirectMW(objRepo, '/customers'));
 
-////////////
-// Customers
-////////////
+///////////////
+// Customers //
+//////////// //
 
 // - Get all customers
 app.get('/customers', loadAllCustomersMW(objRepo), renderMW(objRepo, 'customers'));
