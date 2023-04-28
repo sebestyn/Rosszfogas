@@ -18,16 +18,3 @@ services:
             interval: 10s
             timeout: 5s
             retries: 2
-        networks:
-            - rosszfogas-network
-
-    database:
-        image: mongo
-        volumes:
-            - ./data/db:/data/db
-        networks:
-            - rosszfogas-network
-
-networks:
-    rosszfogas-network:
-        driver: bridge
