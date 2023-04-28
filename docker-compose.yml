@@ -23,6 +23,7 @@ services:
 
     database:
         image: mongo
+        container_name: rosszfogas_db
         volumes:
             - ./data/db:/data/db
         networks:
