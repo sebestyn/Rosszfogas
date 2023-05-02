@@ -8,6 +8,9 @@ const logoutMW = (objRepo) => {
         // Destroy the session
         req.session.destroy();
 
+        res.locals.msg = 'Sikeres kijelentkezés';
+        res.locals.msgType = 'success';
+
         return next();
     };
 };

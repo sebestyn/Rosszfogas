@@ -18,6 +18,9 @@ const loginMW = (objRepo) => {
         // Set the session
         req.session.loggedin = true;
 
+        res.locals.msg = 'Sikeres bejelentkezés';
+        res.locals.msgType = 'success';
+
         return next();
     };
 };

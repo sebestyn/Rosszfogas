@@ -71,10 +71,10 @@ app.get('/', renderMW(objRepo, 'index'));
 //////////
 
 // - Login
-app.post('/login', loginMW(objRepo), redirectMW(objRepo, '/products?msg=Sikeres bejelentkezés&msgType=success'));
+app.post('/login', loginMW(objRepo), redirectMW(objRepo, '/products'));
 
 // - Logout
-app.get('/logout', logoutMW(objRepo), redirectMW(objRepo, '/?msg=Sikeres kijelentkezés&msgType=success'));
+app.get('/logout', logoutMW(objRepo), redirectMW(objRepo, '/'));
 
 // - Auth
 app.use(authMW(objRepo));

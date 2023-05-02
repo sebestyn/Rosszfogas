@@ -13,6 +13,9 @@ const deleteCustomerMW = (objRepo) => {
         // Delete customer from database
         await objRepo.Customer.deleteOne({ _id: req.params.id });
 
+        res.locals.msg = 'Sikeres törlés!';
+        res.locals.msgType = 'success';
+
         return next();
     };
 };
