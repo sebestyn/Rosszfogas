@@ -30,7 +30,7 @@
                                 <%= customers[i].products.length %>
                                 <button class="text-sm text-gray-500 border border-solid rounded-lg px-2 ml-2">listázás</button>
                             </td>
-                            <td class="px-4 py-3 border"><%= customers[i].joined %></td>
+                            <td class="px-4 py-3 border"><%= customers[i].joined.toISOString().split('T')[0] %></td>
                             <td class="px-4 py-3 border">
                                 <a href="/customer/create/<%= customers[i].id %>">
                                     <svg

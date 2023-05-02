@@ -4,11 +4,13 @@
  * @returns {function} - middleware function
  */
 
-var { testProducts } = require('../../db_simulation');
+var { testProducts } = require('../../db/example');
 
 const loadAllProductsMW = (objRepo) => {
-    return (req, res, next) => {
-        res.locals.products = testProducts;
+    return async (req, res, next) => {
+        // Get all products from the database
+        const products = await objRepo.Product.find({});
+        res.locals.products = products;
         return next();
     };
 };

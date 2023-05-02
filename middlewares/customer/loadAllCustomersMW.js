@@ -1,4 +1,4 @@
-var { testCustomers } = require('../../db_simulation');
+var { testCustomers } = require('../../db/example');
 
 /**
  * Load all customers from database to res.locals.customers middleware
@@ -6,8 +6,9 @@ var { testCustomers } = require('../../db_simulation');
  * @returns {function} - Middleware function
  */
 const loadAllCustomersMW = (objRepo) => {
-    return (req, res, next) => {
-        res.locals.customers = testCustomers;
+    return async (req, res, next) => {
+        const customers = await objRepo.Customer.find({});
+        res.locals.customers = customers;
         return next();
     };
 };

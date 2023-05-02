@@ -4,30 +4,53 @@
  * @returns {function} - middleware function
  */
 
-var { testProducts } = require('../../db_simulation');
-
-const testProduct = {
-    id: 0,
-    name: 'Test product',
-    price: 1000,
-    description: 'Test product description',
-    location: 'Test product location',
-    customer: 'Test product customer',
-};
-
 const cremoProductMW = (objRepo) => {
-    return (req, res, next) => {
-        // Create new product if id is undefined
-        if (req.params.id === undefined) {
-            res.locals.new_product = testProduct;
+    return async (req, res, next) => {
+        const { isMongoId, isEmpty, isNumeric } = objRepo.validator;
+
+        // If id is not valid
+        if (!isEmpty(req.params.id + '') && !isMongoId(req.params.id + '')) {
+            // Validate input
+            if (isEmpty(req.body.name + '') || isEmpty(req.body.price + '') || !isNumeric(req.body.price + '')) {
+                res.locals.msg = 'Sikertelen! \nA név és az ár megadása kötelező!';
+                res.locals.msgType = 'error';
+                return next();
+            }
 
             // Save product to database
-            testProducts.push(res.locals.new_product);
+            await objRepo.Product.create({
+                name: req.body.name,
+                price: req.body.price,
+                ...(req.body.description && { description: req.body.description }),
+                ...(req.body.location && { location: req.body.location }),
+            });
+
+            res.locals.msg = 'Sikeres mentés!';
+            res.locals.msgType = 'success';
         }
 
-        // Update product if id is defined
+        // If id is valid
         else {
-            // TODO
+            // Validate input
+            if (isEmpty(req.body.name + '') || isEmpty(req.body.price + '') || !isNumeric(req.body.price + '')) {
+                res.locals.msg = 'Sikertelen! \nA név és az ár megadása kötelező!';
+                res.locals.msgType = 'error';
+                return next();
+            }
+
+            // Update product in database
+            await objRepo.Product.updateOne(
+                { _id: req.params.id },
+                {
+                    name: req.body.name,
+                    price: req.body.price,
+                    description: req.body.description,
+                    location: req.body.location,
+                }
+            );
+
+            res.locals.msg = 'Sikeres mentés!';
+            res.locals.msgType = 'success';
         }
 
         return next();

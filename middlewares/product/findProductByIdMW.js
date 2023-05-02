@@ -1,18 +1,12 @@
-var { testProducts } = require('../../db_simulation');
+var { testProducts } = require('../../db/example');
 
 const findProductByIdMW = (objRepo) => {
-    return (req, res, next) => {
+    return async (req, res, next) => {
         const productId = req.params.id;
 
         if (productId === undefined) return next();
 
-        const product = testProducts.find((p) => {
-            return p.id === Number(productId);
-        });
-
-        if (product) {
-            res.locals.product = product;
-        }
+        res.locals.product = await objRepo.Product.findOne({ _id: productId });
 
         return next();
     };

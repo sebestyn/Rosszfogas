@@ -5,8 +5,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const session = require('express-session');
+const validator = require('validator');
 const PORT = process.env.PORT || 3000;
-const db = require('./config/db');
+
+// Database connection and models
+require('./db/config');
+const Customer = require('./models/customer');
+const Product = require('./models/product');
 
 // Middlewares - default
 const renderMW = require('./middlewares/renderMW');
@@ -52,7 +57,11 @@ app.set('view engine', 'ejs');
 // Routers //
 /////////////
 
-const objRepo = {};
+const objRepo = {
+    validator,
+    Customer,
+    Product,
+};
 
 // - Home
 app.get('/', renderMW(objRepo, 'index'));

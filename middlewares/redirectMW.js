@@ -6,7 +6,9 @@
  */
 const redirectMW = (objRepo, redirectName) => {
     return (req, res, next) => {
-        return res.redirect(redirectName);
+        const { msg, msgType } = res.locals;
+
+        return res.redirect(`${redirectName}?${msg ? `msg=${msg}&msgType=${msgType || 'info'}` : ''}`);
     };
 };
 

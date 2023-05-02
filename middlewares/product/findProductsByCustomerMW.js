@@ -5,8 +5,11 @@
  */
 
 const findProductsByCustomerMW = (objRepo) => {
-    return (req, res, next) => {
-        res.locals.products = res.locals.customer.products;
+    return async (req, res, next) => {
+        if (req.params.id === undefined) return next();
+
+        res.locals.products = await objRepo.Product.find({ customer: req.params.id });
+
         return next();
     };
 };

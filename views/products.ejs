@@ -1,6 +1,6 @@
 <%- include('partials/header', {title: "Termékek"}) %>
 
-<div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-44">
+<div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-20">
     <!-- component source: https://tailwindcomponents.com/component/responsive-table-5-->
     <!-- Title -->
     <h1 class="mx-auto text-4xl font-semibold mb-10">Termékek</h1>
@@ -30,8 +30,8 @@
                             <td class="px-4 py-3 border"><%= products[i].description %></td>
                             <td class="px-4 py-3 border"><%= products[i].location %></td>
                             <td class="px-4 py-3 border">
-                                <select name="" id="">
-                                    <option value="-">-</option>
+                                <select class="selectCustomer" productId="<%= products[i].id %>">
+                                    <option value="">-</option>
                                     <% for(let j=0; j < customers.length; j++) { %>
                                     <option 
                                     value="<%= customers[j].id %>"
@@ -85,5 +85,31 @@
         <a href="/product/create" class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Új termék</a>
     </div>
 </div>
+
+
+<script>
+    // Add change event listener to all select elements with class selectCustomer
+    const selectCustomers = document.querySelectorAll('.selectCustomer');
+    selectCustomers.forEach(selectCustomer => {
+        selectCustomer.addEventListener('change', async (e) => {
+            // Get product and customer id
+            const product_id = e.target.getAttribute('productId');
+            const customer_id = e.target.value;
+            // Send POST request to /product/buy/:id
+            const response = await fetch('/product/buy/' + product_id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    customer_id
+                })
+            })
+            const data = await response.json()
+            toast(data.msg, data.msgType)
+
+        })
+    })
+</script>
 
 <%- include('partials/footer') %>

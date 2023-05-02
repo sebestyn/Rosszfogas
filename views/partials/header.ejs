@@ -16,6 +16,10 @@
             const msg = urlParams.get('msg');
             const msgType = urlParams.get('msgType');
             if (msg) {
+                toast(msg, msgType);
+            }
+
+            function toast(msg, msgType) {
                 Swal.fire({
                     title: msg,
                     icon: msgType || '',

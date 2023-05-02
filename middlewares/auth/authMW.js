@@ -5,6 +5,7 @@
  */
 const authMW = (objRepo) => {
     return (req, res, next) => {
+        return next();
         if (typeof req.session.loggedin === 'undefined' || !req.session.loggedin) {
             return res.redirect('/');
         }

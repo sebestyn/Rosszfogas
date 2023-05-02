@@ -1,7 +1,7 @@
 const Schema = require('mongoose').Schema;
-const db = require('../config/db');
+const mongoose = require('mongoose');
 
-const Customer = db.model('Customer', {
+const CustomerSchema = new Schema({
     name: { type: String, required: true, unique: true },
     price: { type: Number, required: true },
     description: { type: String },
@@ -11,3 +11,7 @@ const Customer = db.model('Customer', {
         ref: 'Customer',
     },
 });
+
+const Customer = mongoose.models.Product || mongoose.model('Product', CustomerSchema);
+
+module.exports = Customer;

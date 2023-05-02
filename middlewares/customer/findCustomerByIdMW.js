@@ -1,16 +1,10 @@
-var { testCustomers } = require('../../db_simulation');
+var { testCustomers } = require('../../db/example');
 
 const findCustomerByIdMW = (objRepo) => {
-    return (req, res, next) => {
+    return async (req, res, next) => {
         if (req.params.id === undefined) return next();
 
-        const customer = testCustomers.find((c) => {
-            return c.id === Number(req.params.id);
-        });
-
-        if (customer) {
-            res.locals.customer = customer;
-        }
+        res.locals.customer = await objRepo.Customer.findOne({ _id: req.params.id });
 
         return next();
     };
