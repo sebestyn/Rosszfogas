@@ -15,28 +15,52 @@ const testCustomer = {
  */
 const cremoCustomerMW = (objRepo) => {
     return async (req, res, next) => {
-        // Create new customer if id is undefined
-        if (req.params.id === undefined) {
-            res.locals.new_customer = {
-                name: req.body.name,
-                email: req.body.email,
-                products: req.body.products,
-            };
+        const { isMongoId, isEmpty, isEmail } = objRepo.validator;
 
-            // Save customer to database
-            await objRepo.Customer.create(res.locals.new_customer);
+        // If id is not valid --> create new customer
+        if (!isMongoId(req.params.id + '')) {
+            // Validate input
+            if (isEmpty(req.body.name + '') || !isEmail(req.body.email + '')) {
+                res.locals.msg = 'Sikertelen! \nA név és helyes email megadása kötelező!';
+                res.locals.msgType = 'error';
+                return next();
+            }
+            try {
+                // Save customer to database
+                await objRepo.Customer.create({
+                    name: req.body.name,
+                    email: req.body.email,
+                    products: req.body.products,
+                });
+            } catch (err) {
+                res.locals.msg = 'Sikertelen! \nHiba a mentés során';
+                res.locals.msgType = 'error';
+                return next();
+            }
         }
 
         // Update customer if id is defined
         else {
-            await objRepo.Customer.updateOne(
-                { _id: req.params.id },
-                {
-                    name: req.body.name,
-                    email: req.body.email,
-                    products: req.body.products,
+            try {
+                // Validate input
+                if (isEmpty(req.body.name + '') || !isEmail(req.body.email + '')) {
+                    res.locals.msg = 'Sikertelen! \nA név és helyes email megadása kötelező!';
+                    res.locals.msgType = 'error';
+                    return next();
                 }
-            );
+                await objRepo.Customer.updateOne(
+                    { _id: req.params.id },
+                    {
+                        name: req.body.name,
+                        email: req.body.email,
+                        products: req.body.products,
+                    }
+                );
+            } catch (err) {
+                res.locals.msg = 'Sikertelen! \nHiba a mentés során';
+                res.locals.msgType = 'error';
+                return next();
+            }
         }
 
         return next();

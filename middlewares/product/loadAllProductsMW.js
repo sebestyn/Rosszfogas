@@ -8,9 +8,14 @@ var { testProducts } = require('../../db/example');
 
 const loadAllProductsMW = (objRepo) => {
     return async (req, res, next) => {
-        // Get all products from the database
-        const products = await objRepo.Product.find({});
-        res.locals.products = products;
+        try {
+            // Get all products from the database
+            res.locals.products = await objRepo.Product.find({});
+        } catch (err) {
+            res.locals.products = [];
+            res.locals.msg = 'Adatbázis hiba!';
+            res.locals.msgType = 'error';
+        }
         return next();
     };
 };

@@ -8,13 +8,25 @@ var { testCustomers } = require('../../db/example');
 
 const deleteCustomerMW = (objRepo) => {
     return async (req, res, next) => {
-        if (req.params.id === undefined) return next();
+        const { isMongoId, isEmpty } = objRepo.validator;
+        const customer_id = req.params.id;
 
-        // Delete customer from database
-        await objRepo.Customer.deleteOne({ _id: req.params.id });
+        // Check if id is valid
+        if (isEmpty(customer_id + '') || !isMongoId(customer_id + '')) {
+            res.locals.msg = 'Sikertelen!\nHiba történt a törlés során!';
+            res.locals.msgType = 'error';
+            return next();
+        }
 
-        res.locals.msg = 'Sikeres törlés!';
-        res.locals.msgType = 'success';
+        try {            
+            // Delete customer from database
+            await objRepo.Customer.deleteOne({ _id: customer_id });
+            res.locals.msg = 'Sikeres törlés!';
+            res.locals.msgType = 'success';
+        } catch (err) {
+            res.locals.msg = 'Sikertelen!\nHiba történt a törlés során!';
+            res.locals.msgType = 'error';
+        }
 
         return next();
     };

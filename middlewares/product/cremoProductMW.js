@@ -8,8 +8,8 @@ const cremoProductMW = (objRepo) => {
     return async (req, res, next) => {
         const { isMongoId, isEmpty, isNumeric } = objRepo.validator;
 
-        // If id is not valid
-        if (!isEmpty(req.params.id + '') && !isMongoId(req.params.id + '')) {
+        // If id is not valid --> create new product
+        if (!isMongoId(req.params.id + '')) {
             // Validate input
             if (isEmpty(req.body.name + '') || isEmpty(req.body.price + '') || !isNumeric(req.body.price + '')) {
                 res.locals.msg = 'Sikertelen! \nA név és az ár megadása kötelező!';
@@ -17,19 +17,25 @@ const cremoProductMW = (objRepo) => {
                 return next();
             }
 
-            // Save product to database
-            await objRepo.Product.create({
-                name: req.body.name,
-                price: req.body.price,
-                ...(req.body.description && { description: req.body.description }),
-                ...(req.body.location && { location: req.body.location }),
-            });
+            try{
+                // Save product to database
+                await objRepo.Product.create({
+                    name: req.body.name,
+                    price: req.body.price,
+                    ...(req.body.description && { description: req.body.description }),
+                    ...(req.body.location && { location: req.body.location }),
+                });
 
-            res.locals.msg = 'Sikeres mentés!';
-            res.locals.msgType = 'success';
+                res.locals.msg = 'Sikeres mentés!';
+                res.locals.msgType = 'success';
+            } catch(err){
+                res.locals.msg = 'Sikertelen mentés!';
+                res.locals.msgType = 'error';
+            }
+
         }
 
-        // If id is valid
+        // If id is valid --> update one
         else {
             // Validate input
             if (isEmpty(req.body.name + '') || isEmpty(req.body.price + '') || !isNumeric(req.body.price + '')) {
@@ -38,19 +44,25 @@ const cremoProductMW = (objRepo) => {
                 return next();
             }
 
-            // Update product in database
-            await objRepo.Product.updateOne(
-                { _id: req.params.id },
-                {
-                    name: req.body.name,
-                    price: req.body.price,
-                    description: req.body.description,
-                    location: req.body.location,
-                }
-            );
+            try{
+                // Update product in database
+                await objRepo.Product.updateOne(
+                    { _id: req.params.id },
+                    {
+                        name: req.body.name,
+                        price: req.body.price,
+                        description: req.body.description,
+                        location: req.body.location,
+                    }
+                );
 
-            res.locals.msg = 'Sikeres mentés!';
-            res.locals.msgType = 'success';
+                res.locals.msg = 'Sikeres mentés!';
+                res.locals.msgType = 'success';
+            } catch(err){
+                res.locals.msg = 'Sikertelen módosítás!';
+                res.locals.msgType = 'error';
+            }
+
         }
 
         return next();

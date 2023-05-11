@@ -3,9 +3,21 @@
 <div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-20">
     <!-- component source: https://tailwindcomponents.com/component/responsive-table-5-->
     <!-- Title -->
+    <% if(locals.customer){ %>
+        <h1 class="mx-auto text-4xl font-semibold mb-10">
+            <span class="text-blue-700">
+                <%= customer.name %>
+            </span> 
+            termékei
+        </h1>
+        <% } else { %>
     <h1 class="mx-auto text-4xl font-semibold mb-10">Termékek</h1>
+    <% } %>
 
     <!-- Table -->
+    <% if(!products || products.length === 0){ %>
+    <h2 class="mb-8 container mx-auto font-mono w-full">No products found</h2>
+    <% } else { %>
     <section class="container mx-auto font-mono">
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
             <div class="w-full overflow-x-auto">
@@ -79,6 +91,7 @@
             </div>
         </div>
     </section>
+    <% } %>
 
     <!-- Buttons -->
     <div class="mx-auto text-center">

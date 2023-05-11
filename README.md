@@ -2,27 +2,39 @@
 
 ## Dependencies
 
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [EJS](https://ejs.co/)
-- [Tailwind CSS](https://tailwindcss.com/)
+-   [Node.js](https://nodejs.org/)
+-   [Express.js](https://expressjs.com/)
+-   [EJS](https://ejs.co/)
+-   [Tailwind CSS](https://tailwindcss.com/)
 
 ## Template
+
 https://github.com/hridoykhandakar/tailwind_with_ejs_starter_template
 
 # Requirements
 
 You need to have installed [Node.js](https://nodejs.org/es/download/).
 
+# Seed database with data
+
+```sh
+npm run seed
+```
+
 # Start app
+
 With docker compose:
+
 ```sh
  docker compose up -d
 ```
+
 With nodeJS
+
 ```sh
  npm install
 ```
+
 ```sh
  npm start
 ```

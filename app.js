@@ -102,7 +102,7 @@ app.post('/product/delete/:id', deleteProductMW(objRepo), redirectMW(objRepo, '/
 app.post('/product/buy/:id', buyProductMW(objRepo), redirectMW(objRepo, '/products'));
 
 // - Get customer's buyed products
-app.get('/products/customer/:id', findCustomerByIdMW(objRepo), findProductsByCustomerMW(objRepo), redirectMW(objRepo, '/customers'));
+app.get('/products/customer/:id', findProductsByCustomerMW(objRepo), loadAllCustomersMW(objRepo), renderMW(objRepo, 'products'));
 
 ///////////////
 // Customers //

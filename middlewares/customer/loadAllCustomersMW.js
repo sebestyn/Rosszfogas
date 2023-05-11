@@ -7,8 +7,14 @@ var { testCustomers } = require('../../db/example');
  */
 const loadAllCustomersMW = (objRepo) => {
     return async (req, res, next) => {
-        const customers = await objRepo.Customer.find({});
-        res.locals.customers = customers;
+        try {
+            // Get all products from the database
+            res.locals.customers = await objRepo.Customer.find({});
+        } catch (err) {
+            res.locals.customers = [];
+            res.locals.msg = 'Adatbázis hiba!';
+            res.locals.msgType = 'error';
+        }
         return next();
     };
 };

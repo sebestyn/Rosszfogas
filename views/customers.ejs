@@ -6,6 +6,9 @@
     <h1 class="mx-auto text-4xl font-semibold mb-10">Vásárlók</h1>
 
     <!-- Table -->
+    <% if(!customers || customers.length === 0){ %>
+    <h2 class="mb-8 container mx-auto font-mono w-full">No customers found</h2>
+    <% } else { %>
     <section class="container mx-auto font-mono">
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
             <div class="w-full overflow-x-auto">
@@ -28,7 +31,7 @@
                             <td class="px-4 py-3 border"><%= customers[i].email %></td>
                             <td class="px-4 py-3 border">
                                 <%= customers[i].products.length %>
-                                <button class="text-sm text-gray-500 border border-solid rounded-lg px-2 ml-2">listázás</button>
+                                <a href="/products/customer/<%= customers[i].id %>" class="text-sm text-gray-500 border border-solid rounded-lg px-2 ml-2">listázás</a>
                             </td>
                             <td class="px-4 py-3 border"><%= customers[i].joined.toISOString().split('T')[0] %></td>
                             <td class="px-4 py-3 border">
@@ -45,11 +48,19 @@
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
                                             d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                        /></svg>
-                                    </a>
+                                        />
+                                    </svg>
+                                </a>
                                 <form class="inline" action="/customer/delete/<%= customers[i].id %>" method="post">
                                     <button class="inline">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline text-red-600 cursor-pointer">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            class="w-6 h-6 inline text-red-600 cursor-pointer"
+                                        >
                                             <path
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
@@ -66,6 +77,7 @@
             </div>
         </div>
     </section>
+    <% } %>
 
     <!-- Buttons -->
     <div class="mx-auto text-center">
