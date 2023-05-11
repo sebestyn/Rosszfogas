@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const helmet = require('helmet');
 const session = require('express-session');
 const validator = require('validator');
@@ -48,7 +47,7 @@ app.use(
         },
     })
 );
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true, cookie: { maxAge: 60000 } }));
+app.use(session({ secret: 'jnsg843nl2afdd7N7KDsdfna', resave: false, saveUninitialized: true, cookie: { maxAge: 60000 } }));
 
 // Set engine to ejs
 app.set('view engine', 'ejs');
