@@ -2,47 +2,51 @@
 
 <div class="container mx-auto text-center px-2 sm:px-10 md:px-20 lg:px-44">
     <!-- Title -->
-    <h1 class="mx-auto text-4xl font-semibold mb-6">
-        <%= 'product' in locals ? "Termék módosítás" : "Új termék" %>
-    </h1>
+    <h1 class="mx-auto text-4xl font-semibold mb-6"><%= 'product' in locals ? "Termék módosítás" : "Új termék" %></h1>
 
     <form method="POST" action="/product<%= 'product' in locals ? '/edit/' + product.id : '' %>" class="text-center mx-auto">
         <table class="mx-auto table-auto border-separate border-spacing-6">
             <tr>
                 <td class="text-right text-lg font-semibold">Név</td>
                 <td>
-                    <input type="text" name="name" id="name" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" 
-                        value="<%= 'product' in locals ? product.name : '' %>"
-                    />
+                    <input type="text" name="name" id="name" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" value="<%= 'product' in locals ? product.name : '' %>" />
                 </td>
             </tr>
             <tr>
                 <td class="text-right text-lg font-semibold">Ár</td>
                 <td>
-                    <input type="number" name="price" id="price" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" 
-                    value="<%= 'product' in locals ? product.price : '' %>"
+                    <input
+                        type="number"
+                        name="price"
+                        id="price"
+                        class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none"
+                        value="<%= 'product' in locals ? product.price : '' %>"
                     />
                 </td>
             </tr>
             <tr>
                 <td class="text-right text-lg font-semibold">Leírás</td>
                 <td>
-                    <textarea name="description" id="description" class="w-[200px] border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none"><%= 'product' in locals ? product.description : '' %></textarea>
+                    <textarea name="description" id="description" class="w-[200px] border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none">
+<%= 'product' in locals ? product.description : '' %></textarea
+                    >
                 </td>
             </tr>
             <tr>
                 <td class="text-right text-lg font-semibold">Átvételi hely</td>
                 <td>
-                    <input type="text" name="place" id="place" class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none" 
-                    value="<%= 'product' in locals ? product.location : '' %>"
+                    <input
+                        type="text"
+                        name="location"
+                        id="location"
+                        class="border-2 border-gray-300 bg-white h-10 px-2 rounded-lg focus:outline-none"
+                        value="<%= 'product' in locals ? product.location : '' %>"
                     />
                 </td>
             </tr>
             <tr>
                 <td class="mx-auto text-center" colspan="2">
-                    <button class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Mentés
-
-                    </button>
+                    <button class="border border-solid px-8 py-2 text-white bg-blue-800 rounded-lg shadow-lg hover:bg-blue-900">Mentés</button>
                 </td>
             </tr>
         </table>
