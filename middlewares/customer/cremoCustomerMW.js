@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 var { testCustomers } = require('../../db/example');
 
 const testCustomer = {
@@ -15,7 +17,7 @@ const testCustomer = {
  */
 const cremoCustomerMW = (objRepo) => {
     return async (req, res, next) => {
-        const { isMongoId, isEmpty, isEmail } = objRepo.validator;
+        const { isMongoId, isEmpty, isEmail } = validator;
 
         // If id is not valid --> create new customer
         if (!isMongoId(req.params.id + '')) {

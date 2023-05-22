@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 /**
  * Customer buy a product middleware
  * @param {*} objRepo
@@ -5,7 +7,7 @@
  */
 const buyProductMW = (objRepo) => {
     return async (req, res, next) => {
-        const { isMongoId, isEmpty } = objRepo.validator;
+        const { isMongoId, isEmpty } = validator;
         const product_id = req.params.id;
         const customer_id = req.body.customer_id;
 
@@ -27,7 +29,6 @@ const buyProductMW = (objRepo) => {
         try {
             // Get old customer id
             const old_customer_id = await objRepo.Product.findOne({ _id: product_id }, { customer: 1 });
-            console.log(old_customer_id);
             // If there is old customer --> remove product from old customer
             if (old_customer_id.customer) {
                 await objRepo.Customer.updateOne({ _id: old_customer_id.customer }, { $pull: { products: product_id } });

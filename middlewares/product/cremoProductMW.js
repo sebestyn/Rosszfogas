@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 /**
  * Create or modify product middleware
  * @param {*} objRepo - object repository
@@ -6,10 +8,11 @@
 
 const cremoProductMW = (objRepo) => {
     return async (req, res, next) => {
-        const { isMongoId, isEmpty, isNumeric } = objRepo.validator;
+        const { isMongoId, isEmpty, isNumeric } = validator;
 
         // If id is not valid --> create new product
-        if (!isMongoId(req.params.id + '')) {
+        if (!req.params || !isMongoId(req.params.id + '')) {
+
             // Validate input
             if (isEmpty(req.body.name + '') || isEmpty(req.body.price + '') || !isNumeric(req.body.price + '')) {
                 res.locals.msg = 'Sikertelen! \nA név és az ár megadása kötelező!';
@@ -28,9 +31,11 @@ const cremoProductMW = (objRepo) => {
 
                 res.locals.msg = 'Sikeres mentés!';
                 res.locals.msgType = 'success';
+                return next();
             } catch(err){
                 res.locals.msg = 'Sikertelen mentés!';
                 res.locals.msgType = 'error';
+                return next(err);
             }
 
         }
@@ -58,14 +63,14 @@ const cremoProductMW = (objRepo) => {
 
                 res.locals.msg = 'Sikeres mentés!';
                 res.locals.msgType = 'success';
+                return next();
             } catch(err){
                 res.locals.msg = 'Sikertelen módosítás!';
                 res.locals.msgType = 'error';
+                return next(err);
             }
 
         }
-
-        return next();
     };
 };
 

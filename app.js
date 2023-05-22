@@ -4,7 +4,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const session = require('express-session');
-const validator = require('validator');
 const PORT = process.env.PORT || 3000;
 
 // Database connection and models
@@ -47,7 +46,7 @@ app.use(
         },
     })
 );
-app.use(session({ secret: 'jnsg843nl2afdd7N7KDsdfna', resave: false, saveUninitialized: true, cookie: { maxAge: 60000 } }));
+app.use(session({ secret: 'jnsg843nl2afdd7N7KDsdfna', resave: false, saveUninitialized: true, cookie: { maxAge: 60000 * 100 } }));
 
 // Set engine to ejs
 app.set('view engine', 'ejs');
@@ -57,7 +56,6 @@ app.set('view engine', 'ejs');
 /////////////
 
 const objRepo = {
-    validator,
     Customer,
     Product,
 };

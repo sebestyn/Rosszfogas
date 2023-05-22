@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 /**
  * Finds the products of the customer middleware
  * @param {*} objRepo
@@ -6,7 +8,7 @@
 
 const findProductsByCustomerMW = (objRepo) => {
     return async (req, res, next) => {
-        const { isMongoId, isEmpty } = objRepo.validator;
+        const { isMongoId, isEmpty } = validator;
         const customer_id = req.params.id;
 
         // Check if id is valid

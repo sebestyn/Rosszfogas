@@ -4,11 +4,12 @@
  * @returns {function} - middleware function
  */
 
+const validator = require('validator');
 var { testProducts } = require('../../db/example');
 
 const deleteProductMW = (objRepo) => {
     return async (req, res, next) => {
-        const { isMongoId, isEmpty } = objRepo.validator;
+        const { isMongoId, isEmpty } = validator;
         const product_id = req.params.id;
 
         // Check if id is valid

@@ -1,8 +1,9 @@
+const validator = require('validator');
 var { testCustomers } = require('../../db/example');
 
 const findCustomerByIdMW = (objRepo) => {
     return async (req, res, next) => {
-        const { isMongoId, isEmpty } = objRepo.validator;
+        const { isMongoId, isEmpty } = validator;
         const customer_id = req.params.id;
 
         // Check if id is valid
